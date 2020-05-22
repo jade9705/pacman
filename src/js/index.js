@@ -5,9 +5,10 @@ console.log('it works!');
 const TILE_SIZE = 85;
 
 class Stage{
-  constructor(width, height) {
+  constructor(width, height, entities) {
     this.width = width;
     this.height = height;
+
   };
 
   render() {
@@ -175,5 +176,21 @@ class Entities{
   };
 };
 
+fetch('http://bootcamp.podlomar.org/api/pacman?width=11&height=6')
+.then((resp) => resp.json())
+.then((json) => {
+  console.log(json);
+
+  let entityArr = [];
+
+  for (let i = 0; i < json.length; i += 1){
+    entityArr[i] = new Entity
+  }
+})
+
+
 const newApple = new Entities(1,1,'apple');
 newApple.mount(stage1Elm);
+
+const newWall = new Entities(4,1,'wall');
+newWall.mount(stage1Elm);
