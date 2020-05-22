@@ -42,8 +42,8 @@ stage1.mount(app);
 
 class Pacman{
   constructor(xpos, ypos, mouth) {
-    this.xpos = (xpos - 1)*TILE_SIZE;
-    this.ypos = (ypos - 1)*TILE_SIZE;
+    this.xpos = xpos * TILE_SIZE;
+    this.ypos = ypos * TILE_SIZE;
     this.mouth = mouth;
   };
 
@@ -151,8 +151,8 @@ console.log(stage1);
 
 class Entities{
   constructor(xpos, ypos, type) {
-    this.xpos = (xpos - 1)*TILE_SIZE;
-    this.ypos = (ypos - 1)*TILE_SIZE;
+    this.xpos = xpos*TILE_SIZE;
+    this.ypos = ypos*TILE_SIZE;
     this.type = type;
   };
 
