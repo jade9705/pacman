@@ -37,7 +37,7 @@ class Stage{
 
 };
 const app = document.querySelector('#app');
-let stage1 = new Stage(10, 6);
+let stage1 = new Stage(11, 7);
 stage1.mount(app);
 
 class Pacman{
@@ -183,14 +183,23 @@ fetch('http://bootcamp.podlomar.org/api/pacman?width=11&height=6')
 
   let entityArr = [];
 
-  for (let i = 0; i < json.length; i += 1){
-    entityArr[i] = new Entity
+  for (let i = 0; i < json.walls.length; i += 1){
+    // console.log(i);
+    entityArr[i] = new Entities(`${json.walls[i].x}`, `${json.walls[i].y}`, 'wall');
+    entityArr[i].mount(stage1Elm);
+  }
+
+  for (let i = 0; i < json.apples.length; i += 1){
+    // console.log(i);
+    entityArr[i + json.walls.length] = new Entities(`${json.apples[i].x}`, `${json.apples[i].y}`, 'apple');
+    entityArr[i + json.walls.length].mount(stage1Elm);
+  }
+
+  for (let i = 0; i < json.bombs.length; i += 1){
+    // console.log(i);
+    entityArr[i + json.walls.length +json.apples.length] = new Entities(`${json.bombs[i].x}`, `${json.bombs[i].y}`, 'bomb');
+    entityArr[i + json.walls.length +json.apples.length].mount(stage1Elm);
   }
 })
 
 
-const newApple = new Entities(1,1,'apple');
-newApple.mount(stage1Elm);
-
-const newWall = new Entities(4,1,'wall');
-newWall.mount(stage1Elm);
