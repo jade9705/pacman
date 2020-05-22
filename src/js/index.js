@@ -14,12 +14,12 @@ class Pacman{
   render() {
     const pacmanElm = document.createElement('div');
     pacmanElm.className = 'entity entity--pac pacboy-active-light';
-    let x = this.mouth;
 
     document.addEventListener('keydown', (event) => {
       if(event.key === 'ArrowRight') { 
         pacmanElm.style.backgroundPositionY = '0%';
         this.moveRight();
+        this.switch();
         this.update();
       };
     });
@@ -27,6 +27,7 @@ class Pacman{
       if(event.key === 'ArrowLeft') { 
         pacmanElm.style.backgroundPositionY = '33%';
         this.moveLeft();
+        this.switch();
         this.update();
       };
     });
@@ -34,6 +35,7 @@ class Pacman{
       if(event.key === 'ArrowUp') { 
         pacmanElm.style.backgroundPositionY = '100%';
         this.moveUp();
+        this.switch();
         this.update();
       };
     });
@@ -41,6 +43,7 @@ class Pacman{
       if(event.key === 'ArrowDown') { 
         pacmanElm.style.backgroundPositionY = '66%';
         this.moveDown();
+        this.switch();
         this.update();
       };
     });
@@ -67,11 +70,10 @@ class Pacman{
   };
 
   switch() {
-    let x = this.mouth 
-    if (x === 'open') {
-      x = 'closed'
+    if (this.mouth === 'open') {
+      this.mouth = 'closed';
     } else {
-       x = 'open'
+      this.mouth = 'open';
     };
   }
 
@@ -83,7 +85,7 @@ class Pacman{
     // this.element.style.backgroundPositionX = `${this.mouth}`
     
 
-    if (this.element.style.backgroundPositionX === '100%') {
+    if (this.mouth === 'open') {
       this.element.style.backgroundPositionX = '0%'
     } else {
       this.element.style.backgroundPositionX = '100%'
@@ -93,6 +95,6 @@ class Pacman{
 };
   
   const app = document.querySelector('#app');
-  let pacman1 = new Pacman(100, 0, 'open');
+  let pacman1 = new Pacman(100, 0, 'close');
   pacman1.mount(app);
 
