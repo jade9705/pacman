@@ -24,8 +24,8 @@ class Stage{
   };
 
   tilesToPixels() {
-    this.width*85;
-    this.height*85;
+    this.width *= 85;
+    this.height *= 85;
   };
   
   update() {
@@ -36,13 +36,13 @@ class Stage{
 
 };
 const app = document.querySelector('#app');
-let stage1 = new Stage(5, 6);
+let stage1 = new Stage(15, 8);
 stage1.mount(app);
 
 class Pacman{
   constructor(xpos, ypos, mouth) {
-    this.xpos = xpos;
-    this.ypos = ypos;
+    this.xpos = (xpos - 1)*TILE_SIZE;
+    this.ypos = (ypos - 1)*TILE_SIZE;
     this.mouth = mouth;
   };
 
@@ -92,16 +92,30 @@ class Pacman{
   }
 
   moveRight() {
-    this.xpos += TILE_SIZE;
+    const stageWidthInTile = stage1.width - TILE_SIZE;
+    if(this.xpos < stageWidthInTile){
+      this.xpos += TILE_SIZE;
+    }
   };
   moveLeft() {
-    this.xpos -= TILE_SIZE;
+    const stageWidthInTile = stage1.width - TILE_SIZE;
+    if(this.xpos > 0){
+      this.xpos -= TILE_SIZE;
+    }
   };
+
   moveUp() {
-    this.ypos += TILE_SIZE;
+    const stageHeightInTile = stage1.height - TILE_SIZE;
+    if(this.ypos < stageHeightInTile){
+      this.ypos += TILE_SIZE;
+    }
   };
+
   moveDown() {
-    this.ypos -= TILE_SIZE;
+    const stageHeightInTile = stage1.height - TILE_SIZE;
+    if(this.ypos > 0){
+      this.ypos -= TILE_SIZE;
+    }
   };
 
   switch() {
@@ -129,6 +143,7 @@ class Pacman{
 
 };
   const stage1Elm = document.querySelector('.stage');
-  let pacman1 = new Pacman(100, 0, 'close');
+  let pacman1 = new Pacman(2, 4, 'close');
   pacman1.mount(stage1Elm);
 
+console.log(stage1);
