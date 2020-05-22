@@ -36,7 +36,7 @@ class Stage{
 
 };
 const app = document.querySelector('#app');
-let stage1 = new Stage(15, 8);
+let stage1 = new Stage(10, 6);
 stage1.mount(app);
 
 class Pacman{
@@ -147,3 +147,33 @@ class Pacman{
   pacman1.mount(stage1Elm);
 
 console.log(stage1);
+
+class Entities{
+  constructor(xpos, ypos, type) {
+    this.xpos = (xpos - 1)*TILE_SIZE;
+    this.ypos = (ypos - 1)*TILE_SIZE;
+    this.type = type;
+  };
+
+  render() {
+    const entity = document.createElement('div');
+    entity.className = 'entity';
+    return entity;
+  };
+
+  mount(parent) {
+    this.element = this.render();
+    parent.appendChild(this.element);
+    this.update();
+  };
+
+  update(){
+    this.element.classList.add(`entity--${this.type}`);
+    this.element.style.left = `${this.xpos}px`;
+    this.element.style.bottom = `${this.ypos}px`;
+
+  };
+};
+
+const newApple = new Entities(1,1,'apple');
+newApple.mount(stage1Elm);
