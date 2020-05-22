@@ -4,6 +4,41 @@ console.log('it works!');
 
 const TILE_SIZE = 85;
 
+class Stage{
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  };
+
+  render() {
+    const stageElm = document.createElement('div');
+    stageElm.className = 'stage';
+    return stageElm;
+  };
+  
+  mount(parent) {
+    this.element = this.render();
+    parent.appendChild(this.element);
+    this.tilesToPixels();
+    this.update();
+  };
+
+  tilesToPixels() {
+    this.width*85;
+    this.height*85;
+  };
+  
+  update() {
+    this.element.style.width = `${this.width}px`;
+    this.element.style.height = `${this.height}px`;
+    
+  };
+
+};
+const app = document.querySelector('#app');
+let stage1 = new Stage(5, 6);
+stage1.mount(app);
+
 class Pacman{
   constructor(xpos, ypos, mouth) {
     this.xpos = xpos;
@@ -93,8 +128,7 @@ class Pacman{
   };
 
 };
-  
-  const app = document.querySelector('#app');
+  const stage1Elm = document.querySelector('.stage');
   let pacman1 = new Pacman(100, 0, 'close');
-  pacman1.mount(app);
+  pacman1.mount(stage1Elm);
 
