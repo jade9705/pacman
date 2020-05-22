@@ -1,74 +1,117 @@
 'use strict';
 
 console.log('it works!');
-const pacmanElm = document.querySelector(".entity");
-let xpos = 0;
-let ypos = 0;
+
 const TILE_SIZE = 85;
 
 
-  document.addEventListener('keydown', (event) => {
-    if(event.key === 'ArrowRight') { 
-      pacmanElm.style.backgroundPositionY = '0%';
-      pacman1.moveRight();
-      pacman1.update();
-    };
-  });
-  document.addEventListener('keydown', (event) => {
-    if(event.key === 'ArrowLeft') { 
-      pacmanElm.style.backgroundPositionY = '33%';
-      pacman1.moveLeft();
-      pacman1.update();
-    };
-  });
-  document.addEventListener('keydown', (event) => {
-    if(event.key === 'ArrowUp') { 
-      pacmanElm.style.backgroundPositionY = '100%';
-      pacman1.moveUp();
-      pacman1.update();
-    };
-  });
-  document.addEventListener('keydown', (event) => {
-    if(event.key === 'ArrowDown') { 
-      pacmanElm.style.backgroundPositionY = '66%';
-      pacman1.moveDown();
-      pacman1.update();
-    };
-  });
+  // document.addEventListener('keydown', (event) => {
+  //   if(event.key === 'ArrowRight') { 
+  //     pacmanElm.style.backgroundPositionY = '0%';
+  //     pacman1.moveRight();
+  //     pacman1.update();
+  //   };
+  // });
+  // document.addEventListener('keydown', (event) => {
+  //   if(event.key === 'ArrowLeft') { 
+  //     pacmanElm.style.backgroundPositionY = '33%';
+  //     pacman1.moveLeft();
+  //     pacman1.update();
+  //   };
+  // });
+  // document.addEventListener('keydown', (event) => {
+  //   if(event.key === 'ArrowUp') { 
+  //     pacmanElm.style.backgroundPositionY = '100%';
+  //     pacman1.moveUp();
+  //     pacman1.update();
+  //   };
+  // });
+  // document.addEventListener('keydown', (event) => {
+  //   if(event.key === 'ArrowDown') { 
+  //     pacmanElm.style.backgroundPositionY = '66%';
+  //     pacman1.moveDown();
+  //     pacman1.update();
+  //   };
+  // });
 
 
     class Pacman{
-      constructor(xpos, mouth) {
+      constructor(xpos, ypos, mouth) {
         this.xpos = xpos;
+        this.ypos = ypos;
         this.mouth = mouth;
       };
 
+      render() {
+        const pacmanElm = document.createElement('div');
+        pacmanElm.className = 'gulp entity entity--pac pacboy-active-light';
+
+        document.addEventListener('keydown', (event) => {
+          if(event.key === 'ArrowRight') { 
+            pacmanElm.style.backgroundPositionY = '0%';
+            this.moveRight();
+            this.update();
+          };
+        });
+        document.addEventListener('keydown', (event) => {
+          if(event.key === 'ArrowLeft') { 
+            pacmanElm.style.backgroundPositionY = '33%';
+            this.moveLeft();
+            this.update();
+          };
+        });
+        document.addEventListener('keydown', (event) => {
+          if(event.key === 'ArrowUp') { 
+            pacmanElm.style.backgroundPositionY = '100%';
+            this.moveUp();
+            this.update();
+          };
+        });
+        document.addEventListener('keydown', (event) => {
+          if(event.key === 'ArrowDown') { 
+            pacmanElm.style.backgroundPositionY = '66%';
+            this.moveDown();
+            this.update();
+          };
+        });
+        return pacmanElm;
+      };
+
+      mount(parent) {
+        this.element = this.render();
+        parent.appendChild(this.element);
+        this.update();
+      }
+
       moveRight() {
-        xpos += TILE_SIZE;
+        this.xpos += TILE_SIZE;
       };
       moveLeft() {
-        xpos -= TILE_SIZE;
+        this.xpos -= TILE_SIZE;
       };
       moveUp() {
-        ypos += TILE_SIZE;
+        this.ypos += TILE_SIZE;
       };
       moveDown() {
-        ypos -= TILE_SIZE;
+        this.ypos -= TILE_SIZE;
       };
 
+      
+
       update() {
-        pacmanElm.style.left = `${xpos}px`;
-        pacmanElm.style.bottom = `${ypos}px`;
+        this.element.style.left = `${this.xpos}px`;
+        this.element.style.bottom = `${this.ypos}px`;
 
 
-        if (pacmanElm.style.backgroundPositionX === '100%') {
-          pacmanElm.style.backgroundPositionX = '0%'
+        if (this.element.style.backgroundPositionX === '100%') {
+          this.element.style.backgroundPositionX = '0%'
         } else {
-          pacmanElm.style.backgroundPositionX = '100%'
+          this.element.style.backgroundPositionX = '100%'
         };
       };
 
     };
-
-    let pacman1 = new Pacman(0, '100%');
+   const app = document.querySelector('#app');
+    let pacman1 = new Pacman(0, 50, '100%');
+    pacman1.mount(app);
 
