@@ -28,6 +28,11 @@ class Stage{
     this.width *= 85;
     this.height *= 85;
   };
+
+  // collisionDetection(x,y) {
+
+  // };
+
   
   update() {
     this.element.style.width = `${this.width}px`;
